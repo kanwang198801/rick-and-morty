@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { gql } from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks'
 import List from '../components/List';
@@ -26,13 +26,16 @@ const GET_CHARACTERS = gql`
 `
 
 export default function Characters(props) {
-
-  const [searchInput, setSearchInput] = useState('');
-  // const [nameFilter, setNameFilter] = useState('');
-  const [statusFilter, setStatusFilter] = useState(props.location.state ? props.location.state.statusFilter : '');
-  const [speciesFilter, setSpeciesFilter] = useState(props.location.state ? props.location.state.speciesFilter : '');
-  const [typeFilter, setTypeFilter] = useState(props.location.state ? props.location.state.typeFilter : '');
-  const [genderFilter, setGenderFilter] = useState(props.location.state ? props.location.state.genderFilter : '');
+  const [searchInput, setSearchInput] = useState("");
+  let propsFilter = ["", "", "", ""];
+  if (props.match.params.filter) {
+    propsFilter = props.match.params.filter.replace(/All/g, "").split("-");
+    console.info(propsFilter);
+  }
+  const [statusFilter, setStatusFilter] = useState(propsFilter[0]);
+  const [speciesFilter, setSpeciesFilter] = useState(propsFilter[1]);
+  const [typeFilter, setTypeFilter] = useState(propsFilter[2]);
+  const [genderFilter, setGenderFilter] = useState(propsFilter[3]);
   const filterFunctions = { setStatusFilter, setSpeciesFilter, setTypeFilter, setGenderFilter };
   const filterValues = { statusFilter, speciesFilter, typeFilter, genderFilter };
 
