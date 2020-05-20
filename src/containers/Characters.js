@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { gql } from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks'
 import List from '../components/List';
 import Search from '../components/Search';
 import Pagination from '../components/Pagination';
+import Filter from '../components/Filter';
 
 const GET_CHARACTERS = gql`
-    query getCharacters($page: Int!) { 
-    characters(page: $page) {
+
+    query getCharacters($page: Int!, $name: String, $status: String, $species: String, $type: String, $gender: String) { 
+    characters(page: $page, filter: { name: $name, status: $status, species: $species, type: $type, gender: $gender }) {
         info {
           count
         }
@@ -25,18 +27,25 @@ const GET_CHARACTERS = gql`
 
 export default function Characters(props) {
   const [searchInput, setSearchInput] = useState('');
+  // const [nameFilter, setNameFilter] = useState('');
+  const [statusFilter, setStatusFilter] = useState('');
+  const [speciesFilter, setSpeciesFilter] = useState('');
+  const [typeFilter, setTypeFilter] = useState('');
+  const [genderFilter, setGenderFilter] = useState('');
+  const filterFunctions = { setStatusFilter, setSpeciesFilter, setTypeFilter, setGenderFilter };
+  const filterValues = { statusFilter, speciesFilter, typeFilter, genderFilter };
+
   let page = 1;
+  let filteredCharacters;
+  let paginationNums = [];
 
   if (props.match.params.id) {
     page = parseInt(props.match.params.id);
   }
 
   const { loading, error, data } = useQuery(GET_CHARACTERS, {
-    variables: { page },
+    variables: { page, status: statusFilter, species: speciesFilter, type: typeFilter, gender: genderFilter },
   });
-
-  let filteredCharacters;
-  let paginationNums = [];
 
   const onSearchChange = (event) => {
     setSearchInput(event.target.value);
@@ -56,10 +65,14 @@ export default function Characters(props) {
   for (let i = 1; i < Math.ceil(data.characters.info.count / 20); i++) {
     paginationNums.push(i);
   }
-
+  console.info(speciesFilter);
   return (
     <>
       <h1>Characters: Page {page}</h1>
+      {!props.match.params.id ?
+        <Filter filterFunctions={filterFunctions} filterValues={filterValues} />
+        : <button onClick={() => props.history.push("/")}>Back Home</button>
+      }
       <Search searchChange={onSearchChange} />
       <List items={filteredCharacters} link="character" type="character" />
       <Pagination paginationNums={paginationNums} currentPage={page} />

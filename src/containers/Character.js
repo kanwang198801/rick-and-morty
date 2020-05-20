@@ -38,11 +38,11 @@ export default function Character(props) {
     <button onClick={() => props.history.goBack()}>Back</button>
     <img src={character.image} alt="character" />
     <h1>{character.name}</h1>
-    <h5>Status:{character.status}</h5>
-    <h5>Species:{character.species}</h5>
+    <h5>Status: {character.status}</h5>
+    <h5>Species: {character.species}</h5>
     {character.type && (<h5>Type:{character.type}</h5>)}
     <h5>Gender: {character.gender}</h5>
-    <h3>Episodes:</h3>
+    <h3>Episodes: </h3>
     <List items={character.episode} type="episode" />
   </>;
 }

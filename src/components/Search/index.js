@@ -6,6 +6,7 @@ export default function Search({ searchChange }) {
     return (
         <div className={styles.search}>
             <input
+                className={styles.searchInput}
                 type='search'
                 placeholder='search by name'
                 onChange={searchChange}
@@ -15,5 +16,5 @@ export default function Search({ searchChange }) {
 }
 
 Search.propTypes = {
-    searchChange: PropTypes.string,
+    searchChange: PropTypes.func,
 };
