@@ -3,10 +3,11 @@ import { gql } from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks'
 import List from '../components/List';
 import Search from '../components/Search';
+import Pagination from '../components/Pagination';
 
 const GET_CHARACTERS = gql`
-  {
-    characters {
+    query getCharacters($page: Int!) { 
+    characters(page: $page) {
         info {
           count
         }
@@ -22,10 +23,20 @@ const GET_CHARACTERS = gql`
   }
 `
 
-export default function Characters() {
-  const { loading, error, data } = useQuery(GET_CHARACTERS);
+export default function Characters(props) {
   const [searchInput, setSearchInput] = useState('');
-  let filteredCharacters
+  let page = 1;
+
+  if (props.match.params.id) {
+    page = parseInt(props.match.params.id);
+  }
+
+  const { loading, error, data } = useQuery(GET_CHARACTERS, {
+    variables: { page },
+  });
+
+  let filteredCharacters;
+  let paginationNums = [];
 
   const onSearchChange = (event) => {
     setSearchInput(event.target.value);
@@ -42,11 +53,16 @@ export default function Characters() {
     filteredCharacters = data.characters.results;
   }
 
+  for (let i = 1; i < Math.ceil(data.characters.info.count / 20); i++) {
+    paginationNums.push(i);
+  }
+
   return (
     <>
-      <h1>Characters List: {data.characters.info.count} items</h1>
+      <h1>Characters: Page {page}</h1>
       <Search searchChange={onSearchChange} />
       <List items={filteredCharacters} link="character" type="character" />
+      <Pagination paginationNums={paginationNums} currentPage={page} />
     </>
   );
 

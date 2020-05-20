@@ -8,7 +8,7 @@ export default function List({ items, link, type }) {
     if (type === "character") {
         list = items.map((listItem) => {
             return (<div className={styles.listItem} key={`item - ${listItem.id}`}>
-                <Link className="link" to={`${link}/${listItem.id}`}>
+                <Link className="link" to={`/${link}/${listItem.id}`}>
                     <img src={listItem.image} alt="charactor" />
                     <h5>{listItem.name}</h5>
                 </Link >

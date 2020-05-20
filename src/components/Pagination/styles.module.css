@@ -1,0 +1,19 @@
+.pagination {
+    padding: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+.pagination .paginationNum {
+    flex-basis: 50px;
+    margin: 5px;
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+  }
+.pagination .paginationNum a {
+    color:#000;
+    text-decoration: none;
+    width: 100%;
+    font-weight: 400;
+}

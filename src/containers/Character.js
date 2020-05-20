@@ -1,7 +1,6 @@
 import React from 'react';
 import { gql } from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks';
-import { Link } from 'react-router-dom';
 import List from '../components/List';
 
 const GET_CHARACTER = gql`
@@ -36,7 +35,7 @@ export default function Character(props) {
   if (error) return <p>Error:{error}</p>;
   const character = data.character;
   return <>
-    <Link to="/">Back</Link>
+    <button onClick={() => props.history.goBack()}>Back</button>
     <img src={character.image} alt="character" />
     <h1>{character.name}</h1>
     <h5>Status:{character.status}</h5>
