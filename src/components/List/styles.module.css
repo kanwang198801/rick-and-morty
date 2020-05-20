@@ -1,0 +1,13 @@
+  
+.list {
+    padding:15px;
+    border:1px solid #ccc;
+    background-color:#f5f5f5;
+  }
+  .listItem{
+    margin-bottom:25px;
+  }
+  .listItem h5{
+    border-bottom:1px solid #ccc;
+    padding-bottom: 28px;
+  }
