@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { gql } from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks'
 import List from '../components/List';
@@ -26,12 +26,13 @@ const GET_CHARACTERS = gql`
 `
 
 export default function Characters(props) {
+
   const [searchInput, setSearchInput] = useState('');
   // const [nameFilter, setNameFilter] = useState('');
-  const [statusFilter, setStatusFilter] = useState('');
-  const [speciesFilter, setSpeciesFilter] = useState('');
-  const [typeFilter, setTypeFilter] = useState('');
-  const [genderFilter, setGenderFilter] = useState('');
+  const [statusFilter, setStatusFilter] = useState(props.location.state ? props.location.state.statusFilter : '');
+  const [speciesFilter, setSpeciesFilter] = useState(props.location.state ? props.location.state.speciesFilter : '');
+  const [typeFilter, setTypeFilter] = useState(props.location.state ? props.location.state.typeFilter : '');
+  const [genderFilter, setGenderFilter] = useState(props.location.state ? props.location.state.genderFilter : '');
   const filterFunctions = { setStatusFilter, setSpeciesFilter, setTypeFilter, setGenderFilter };
   const filterValues = { statusFilter, speciesFilter, typeFilter, genderFilter };
 
@@ -65,7 +66,7 @@ export default function Characters(props) {
   for (let i = 1; i < Math.ceil(data.characters.info.count / 20); i++) {
     paginationNums.push(i);
   }
-  console.info(speciesFilter);
+
   return (
     <>
       <h1>Characters: Page {page}</h1>
@@ -75,7 +76,7 @@ export default function Characters(props) {
       }
       <Search searchChange={onSearchChange} />
       <List items={filteredCharacters} link="character" type="character" />
-      <Pagination paginationNums={paginationNums} currentPage={page} />
+      <Pagination paginationNums={paginationNums} currentPage={page} filterValues={filterValues} />
     </>
   );
 
