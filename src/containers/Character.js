@@ -1,6 +1,8 @@
 import React from 'react';
 import { gql } from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks';
+import { Link } from 'react-router-dom';
+import List from '../components/List';
 
 const GET_CHARACTER = gql`
 query getCharacter($id: ID!) { 
@@ -32,6 +34,17 @@ export default function Character(props) {
 
   if (loading) return <p>Loading ...</p>;
   if (error) return <p>Error:{error}</p>;
-  console.info(data);
-  return <h1>Character: {data.character.name}</h1>;
+  const character = data.character;
+  return <>
+    <Link to="/">Back</Link>
+    <img src={character.image} alt="character" />
+    <h1>{character.name}</h1>
+    <h5>Status:{character.status}</h5>
+    <h5>Species:{character.species}</h5>
+    {character.type && (<h5>Type:{character.type}</h5>)}
+    <h5>Gender: {character.gender}</h5>
+    <h3>Episodes:</h3>
+    <List items={character.episode} type="episode" />
+  </>;
 }
+

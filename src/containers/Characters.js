@@ -34,7 +34,6 @@ export default function Characters() {
   if (loading) return <p>Loading ...</p>;
   if (error) return <p>Error: {error}</p>;
   if (searchInput) {
-    console.info(filteredCharacters);
     filteredCharacters = data.characters.results.filter(character => {
       return character.name.toLowerCase().includes(searchInput.toLowerCase());
     });
@@ -47,7 +46,7 @@ export default function Characters() {
     <>
       <h1>Characters List: {data.characters.info.count} items</h1>
       <Search searchChange={onSearchChange} />
-      <List items={filteredCharacters} link="character" />
+      <List items={filteredCharacters} link="character" type="character" />
     </>
   );
 
