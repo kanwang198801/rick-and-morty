@@ -13,7 +13,8 @@ export default function Pagination({ paginationNums, currentPage, filterValues }
         genderFilter
     } = filterValues;
 
-    let name = "All", status = "All", species = "All", type = "All", gender = "All", filterParam = "All";
+    let name = "All", status = "All", species = "All",
+        type = "All", gender = "All", filterParam = "All";
     if (searchAllInput) {
         name = searchAllInput;
     }

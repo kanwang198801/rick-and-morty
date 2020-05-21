@@ -2,7 +2,6 @@ import React from 'react';
 import { gql } from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks';
 import List from '../components/List';
-import { FaSpinner } from "react-icons/fa";
 import Theme from '../components/Theme';
 import Loader from '../components/Loader';
 
@@ -31,9 +30,11 @@ query getCharacter($id: ID!) {
 export default function Character(props) {
   const id = props.match.params.id;
   let content = "";
+
   const { loading, error, data } = useQuery(GET_CHARACTER, {
     variables: { id },
   });
+
   if (loading) content = <Loader />
   else if (error) content = <p>Opps... try it again</p>;
   else {

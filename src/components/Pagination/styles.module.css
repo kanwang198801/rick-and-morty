@@ -17,6 +17,9 @@
     width: 100%;
     font-weight: 400;
 }
+.pagination .paginationNum a p{
+  margin-top:15px;
+}
 .pagination .paginationNum a strong{
-   color: #f24a4a;
+  color: #f24a4a;
 }

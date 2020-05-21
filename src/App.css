@@ -28,6 +28,10 @@
   color: #f24a4a;
 }
 
+p{
+  margin-top:0;
+}
+
 button {
   background-color: #f24a4a;
   display: block;
