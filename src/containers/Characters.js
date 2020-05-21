@@ -8,6 +8,7 @@ import Pagination from '../components/Pagination';
 import Filter from '../components/Filter';
 import Theme from '../components/Theme';
 import Loader from '../components/Loader';
+import Divider from '../components/Divider';
 
 const GET_CHARACTERS = gql`
     query getCharacters($page: Int!, $name: String, $status: String, $species: String, $type: String, $gender: String) { 
@@ -84,7 +85,9 @@ export default function Characters(props) {
     for (let i = 1; i < Math.ceil(data.characters.info.count / 20); i++) {
       paginationNums.push(i);
     }
-    content = <> <List items={filteredCharacters} link="character" type="character" />
+    content = <>
+      <Divider />
+      <List items={filteredCharacters} link="character" type="character" />
       <Pagination paginationNums={paginationNums} currentPage={page} filterValues={filterValues} />
     </>
   }

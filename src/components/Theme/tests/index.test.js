@@ -18,4 +18,8 @@ describe('<Theme />', () => {
         const { container } = renderComponent();
         expect(container.children).toHaveLength(1);
     });
+    it('should render an <div> tag', () => {
+        const { container } = renderComponent();
+        expect(container.querySelector('div')).not.toBeNull();
+    });
 });

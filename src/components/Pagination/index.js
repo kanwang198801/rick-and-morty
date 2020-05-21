@@ -2,6 +2,7 @@ import * as React from 'react';
 import styles from './styles.module.css';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Divider from '../Divider';
 
 export default function Pagination({ paginationNums, currentPage, filterValues }) {
     let pagination = [];
@@ -55,6 +56,7 @@ export default function Pagination({ paginationNums, currentPage, filterValues }
         <>
             {pagination.length > 0 && (
                 <div className={styles.pagination}>
+                    <Divider />
                     {pagination}
                 </div>
             )}

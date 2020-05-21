@@ -4,6 +4,7 @@ import { useQuery } from '@apollo/react-hooks';
 import List from '../components/List';
 import Theme from '../components/Theme';
 import Loader from '../components/Loader';
+import Divider from '../components/Divider';
 
 const GET_CHARACTER = gql`
 query getCharacter($id: ID!) { 
@@ -47,7 +48,8 @@ export default function Character(props) {
       <h5>Species: {character.species}</h5>
       {character.type && (<h5>Type: {character.type}</h5>)}
       <h5>Gender: {character.gender}</h5>
-      <h3>Episodes: </h3>
+      <Divider />
+      <h3>Episodes </h3>
       <List items={character.episode} type="episode" />
     </>
   }

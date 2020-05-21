@@ -1,8 +1,8 @@
 .pagination {
-    padding: 15px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    padding-bottom:35px;
   }
 .pagination .paginationNum {
     flex-basis: 50px;
