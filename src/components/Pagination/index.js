@@ -31,7 +31,7 @@ export default function Pagination({ paginationNums, currentPage, filterValues }
     if (genderFilter) {
         gender = genderFilter;
     }
-    console.info(searchAllInput);
+
     if (searchAllInput || statusFilter || speciesFilter || typeFilter || genderFilter) {
         filterParam = `${name}-${status}-${species}-${type}-${gender}`;
     }
