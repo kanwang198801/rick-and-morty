@@ -30,12 +30,11 @@ export default function Pagination({ paginationNums, currentPage, filterValues }
         filterParam = `${status}-${species}-${type}-${gender}`;
     }
 
-    console.info(filterParam);
     if (paginationNums.length > 0) {
         pagination = paginationNums.map((paginationNum) => {
             return (<div className={styles.paginationNum} key={`item - ${paginationNum}`}>
                 <Link className="link" to={{
-                    pathname: `/page/${paginationNum}/${filterParam}`
+                    pathname: `/page/${filterParam}/${paginationNum}`
                 }} >
                     {paginationNum === currentPage ?
                         (<p><strong>{paginationNum}</strong></p>)
@@ -61,4 +60,5 @@ export default function Pagination({ paginationNums, currentPage, filterValues }
 Pagination.propTypes = {
     paginationNums: PropTypes.arrayOf(PropTypes.number).isRequired,
     currentPage: PropTypes.number.isRequired,
+    filterValues: PropTypes.objectOf(PropTypes.string).isRequired,
 };

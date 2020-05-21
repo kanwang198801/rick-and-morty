@@ -26,22 +26,22 @@ const GET_CHARACTERS = gql`
 `
 
 export default function Characters(props) {
-  const [searchInput, setSearchInput] = useState("");
-  let propsFilter = ["", "", "", ""];
+  let page = 1,
+    filteredCharacters,
+    paginationNums = [],
+    content = "",
+    propsFilter = ["", "", "", ""];
+
   if (props.match.params.filter) {
     propsFilter = props.match.params.filter.replace(/All/g, "").split("-");
-    console.info(propsFilter);
   }
+  const [searchInput, setSearchInput] = useState("");
   const [statusFilter, setStatusFilter] = useState(propsFilter[0]);
   const [speciesFilter, setSpeciesFilter] = useState(propsFilter[1]);
   const [typeFilter, setTypeFilter] = useState(propsFilter[2]);
   const [genderFilter, setGenderFilter] = useState(propsFilter[3]);
   const filterFunctions = { setStatusFilter, setSpeciesFilter, setTypeFilter, setGenderFilter };
   const filterValues = { statusFilter, speciesFilter, typeFilter, genderFilter };
-
-  let page = 1;
-  let filteredCharacters;
-  let paginationNums = [];
 
   if (props.match.params.id) {
     page = parseInt(props.match.params.id);
@@ -55,19 +55,27 @@ export default function Characters(props) {
     setSearchInput(event.target.value);
   }
 
-  if (loading) return <p>Loading ...</p>;
   if (error) return <p>Error: {error}</p>;
-  if (searchInput) {
-    filteredCharacters = data.characters.results.filter(character => {
-      return character.name.toLowerCase().includes(searchInput.toLowerCase());
-    });
+
+  if (loading) {
+    content = <p>loading ...</p>
   }
   else {
-    filteredCharacters = data.characters.results;
-  }
+    if (searchInput) {
+      filteredCharacters = data.characters.results.filter(character => {
+        return character.name.toLowerCase().includes(searchInput.toLowerCase());
+      });
+    }
+    else {
+      filteredCharacters = data.characters.results;
+    }
 
-  for (let i = 1; i < Math.ceil(data.characters.info.count / 20); i++) {
-    paginationNums.push(i);
+    for (let i = 1; i < Math.ceil(data.characters.info.count / 20); i++) {
+      paginationNums.push(i);
+    }
+    content = <> <List items={filteredCharacters} link="character" type="character" />
+      <Pagination paginationNums={paginationNums} currentPage={page} filterValues={filterValues} />
+    </>
   }
 
   return (
@@ -78,8 +86,7 @@ export default function Characters(props) {
         : <button onClick={() => props.history.push("/")}>Back Home</button>
       }
       <Search searchChange={onSearchChange} />
-      <List items={filteredCharacters} link="character" type="character" />
-      <Pagination paginationNums={paginationNums} currentPage={page} filterValues={filterValues} />
+      {content}
     </>
   );
 
