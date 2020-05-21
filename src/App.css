@@ -25,7 +25,7 @@
 }
 
 .App-link {
-  color: #61dafb;
+  color: #f24a4a;
 }
 
 button {
@@ -37,6 +37,14 @@ button {
   padding: 10px 20px;
   font-size: 1rem;
   cursor: pointer;
+}
+
+input:focus, select:focus {
+  outline: none;
+}
+
+input::placeholder{
+  color:#000;
 }
 
 @keyframes App-logo-spin {

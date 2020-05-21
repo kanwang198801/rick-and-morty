@@ -7,6 +7,7 @@ import SearchAll from '../components/SearchAll';
 import Pagination from '../components/Pagination';
 import Filter from '../components/Filter';
 import Theme from '../components/Theme';
+import Loader from '../components/Loader';
 
 const GET_CHARACTERS = gql`
     query getCharacters($page: Int!, $name: String, $status: String, $species: String, $type: String, $gender: String) { 
@@ -65,10 +66,10 @@ export default function Characters(props) {
     }
     setSearchAllInputTimeout(setTimeout(() => {
       setSearchAllInput(value);
-    }, 2000));
+    }, 1500));
   }
 
-  if (loading) content = <p>Loading...</p>
+  if (loading) content = <Loader />;
   else if (error) content = <p>Opps... try it again</p>;
   else {
     if (searchInput) {
