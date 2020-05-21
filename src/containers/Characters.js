@@ -3,11 +3,12 @@ import { gql } from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks'
 import List from '../components/List';
 import Search from '../components/Search';
+import SearchAll from '../components/SearchAll';
 import Pagination from '../components/Pagination';
 import Filter from '../components/Filter';
+import Theme from '../components/Theme';
 
 const GET_CHARACTERS = gql`
-
     query getCharacters($page: Int!, $name: String, $status: String, $species: String, $type: String, $gender: String) { 
     characters(page: $page, filter: { name: $name, status: $status, species: $species, type: $type, gender: $gender }) {
         info {
@@ -30,36 +31,45 @@ export default function Characters(props) {
     filteredCharacters,
     paginationNums = [],
     content = "",
-    propsFilter = ["", "", "", ""];
+    propsFilter = ["", "", "", "", ""];
 
   if (props.match.params.filter) {
     propsFilter = props.match.params.filter.replace(/All/g, "").split("-");
   }
+
   const [searchInput, setSearchInput] = useState("");
-  const [statusFilter, setStatusFilter] = useState(propsFilter[0]);
-  const [speciesFilter, setSpeciesFilter] = useState(propsFilter[1]);
-  const [typeFilter, setTypeFilter] = useState(propsFilter[2]);
-  const [genderFilter, setGenderFilter] = useState(propsFilter[3]);
+  const [searchAllInput, setSearchAllInput] = useState(propsFilter[0]);
+  const [searchAllInputTimeout, setSearchAllInputTimeout] = useState(0);
+  const [statusFilter, setStatusFilter] = useState(propsFilter[1]);
+  const [speciesFilter, setSpeciesFilter] = useState(propsFilter[2]);
+  const [typeFilter, setTypeFilter] = useState(propsFilter[3]);
+  const [genderFilter, setGenderFilter] = useState(propsFilter[4]);
   const filterFunctions = { setStatusFilter, setSpeciesFilter, setTypeFilter, setGenderFilter };
-  const filterValues = { statusFilter, speciesFilter, typeFilter, genderFilter };
+  const filterValues = { searchAllInput, statusFilter, speciesFilter, typeFilter, genderFilter };
 
   if (props.match.params.id) {
     page = parseInt(props.match.params.id);
   }
 
   const { loading, error, data } = useQuery(GET_CHARACTERS, {
-    variables: { page, status: statusFilter, species: speciesFilter, type: typeFilter, gender: genderFilter },
+    variables: { page, name: searchAllInput, status: statusFilter, species: speciesFilter, type: typeFilter, gender: genderFilter },
   });
 
   const onSearchChange = (event) => {
     setSearchInput(event.target.value);
   }
-
-  if (error) return <p>Error: {error}</p>;
-
-  if (loading) {
-    content = <p>loading ...</p>
+  const onSearchAllChange = (event) => {
+    const { value } = event.target;
+    if (searchAllInputTimeout) {
+      clearTimeout(searchAllInputTimeout);
+    }
+    setSearchAllInputTimeout(setTimeout(() => {
+      setSearchAllInput(value);
+    }, 2000));
   }
+
+  if (loading) content = <p>Loading...</p>
+  else if (error) content = <p>Opps... try it again</p>;
   else {
     if (searchInput) {
       filteredCharacters = data.characters.results.filter(character => {
@@ -79,15 +89,17 @@ export default function Characters(props) {
   }
 
   return (
-    <>
+    <Theme>
       <h1>Characters: Page {page}</h1>
-      {!props.match.params.id ?
-        <Filter filterFunctions={filterFunctions} filterValues={filterValues} />
-        : <button onClick={() => props.history.push("/")}>Back Home</button>
+      {!props.match.params.id &&
+        <>
+          <Filter filterFunctions={filterFunctions} filterValues={filterValues} />
+          <SearchAll onSearchAllChange={onSearchAllChange} />
+        </>
       }
       <Search searchChange={onSearchChange} />
       {content}
-    </>
+    </Theme>
   );
 
 }

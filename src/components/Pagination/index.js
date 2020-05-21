@@ -6,14 +6,17 @@ import PropTypes from 'prop-types';
 export default function Pagination({ paginationNums, currentPage, filterValues }) {
     let pagination = [];
     const {
+        searchAllInput,
         statusFilter,
         speciesFilter,
         typeFilter,
         genderFilter
     } = filterValues;
 
-    let status = "All", species = "All", type = "All", gender = "All", filterParam = "All";
-
+    let name = "All", status = "All", species = "All", type = "All", gender = "All", filterParam = "All";
+    if (searchAllInput) {
+        name = searchAllInput;
+    }
     if (statusFilter) {
         status = statusFilter;
     }
@@ -26,8 +29,9 @@ export default function Pagination({ paginationNums, currentPage, filterValues }
     if (genderFilter) {
         gender = genderFilter;
     }
-    if (statusFilter || speciesFilter || typeFilter || genderFilter) {
-        filterParam = `${status}-${species}-${type}-${gender}`;
+    console.info(searchAllInput);
+    if (searchAllInput || statusFilter || speciesFilter || typeFilter || genderFilter) {
+        filterParam = `${name}-${status}-${species}-${type}-${gender}`;
     }
 
     if (paginationNums.length > 0) {
