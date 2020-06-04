@@ -21,9 +21,7 @@ query getCharacter($id: ID!) {
             name
             air_date
             episode
-            created
         }
-        created
       }
   }
 `

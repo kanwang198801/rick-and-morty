@@ -3,7 +3,6 @@ import { gql } from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks'
 import List from '../components/List';
 import Search from '../components/Search';
-import SearchAll from '../components/SearchAll';
 import Pagination from '../components/Pagination';
 import Filter from '../components/Filter';
 import Theme from '../components/Theme';
@@ -98,10 +97,10 @@ export default function Characters(props) {
       {!props.match.params.id &&
         <>
           <Filter filterFunctions={filterFunctions} filterValues={filterValues} />
-          <SearchAll onSearchAllChange={onSearchAllChange} />
+          <Search onSearchAllChange={onSearchAllChange} placeholder="Search All" />
         </>
       }
-      <Search searchChange={onSearchChange} />
+      {/* <Search searchChange={onSearchChange} placeholder="Search" /> */}
       {content}
     </Theme>
   );

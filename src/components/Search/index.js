@@ -2,19 +2,20 @@ import * as React from 'react';
 import styles from './styles.module.css';
 import PropTypes from 'prop-types';
 
-export default function Search({ searchChange }) {
+export default function Search({ onSearchAllChange, placeholder }) {
     return (
         <div className={styles.search}>
             <input
                 className={styles.searchInput}
+                placeholder={placeholder}
                 type='search'
-                placeholder='search current page by name'
-                onChange={searchChange}
+                onChange={onSearchAllChange}
             />
         </div>
     );
 }
 
 Search.propTypes = {
-    searchChange: PropTypes.func,
+    onSearchAllChange: PropTypes.func,
+    placeholder: PropTypes.string,
 };
