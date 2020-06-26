@@ -10,6 +10,6 @@ yarn start
 
 yarn tests
 
-## Reference
+### Reference
 
 This app gets data from https://rickandmortyapi.com/graphql
