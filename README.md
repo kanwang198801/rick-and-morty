@@ -1,15 +1,15 @@
-### `yarn`
+### Install
 
-Install
+yarn
 
-### `yarn start`
+### Start App
 
-Start the app
+yarn start
 
-### `yarn test`
+### Test
 
-Run tests
+yarn tests
 
-## Resources
+## Reference
 
-https://rickandmortyapi.com/graphql
+This app gets data from https://rickandmortyapi.com/graphql
