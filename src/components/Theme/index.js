@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 import Header from '../Header';
 
 export default function Theme({ children }) {
-   return (
-      <div className={styles.content}>
-         <Header />
-         <div className={styles.container}>{children}</div>
-      </div>
-   );
+  return (
+    <div className={styles.content}>
+      <Header />
+      <div className={styles.container}>{children}</div>
+    </div>
+  );
 }
 
 Theme.propTypes = {
-   children: PropTypes.node,
+  children: PropTypes.node,
 };

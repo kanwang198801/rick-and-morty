@@ -1,19 +1,18 @@
-  
-.header{
+.header {
   background-color: #f24a4a;
   display: flex;
 }
-.header ul{
+.header ul {
   margin-left: 0px;
   width: auto;
   display: inline-block;
   flex: 1;
   padding-left: 0;
 }
-.header ul li{
+.header ul li {
   list-style: none;
 }
-.header ul li a{
-  color:#fff;
+.header ul li a {
+  color: #fff;
   text-decoration: none;
 }

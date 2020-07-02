@@ -1,10 +1,14 @@
-.loader{
+.loader {
   font-size: 2rem;
   color: #f24a4a;
   animation: spin 2s linear infinite;
-  margin:10px 0;
+  margin: 10px 0;
 }
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

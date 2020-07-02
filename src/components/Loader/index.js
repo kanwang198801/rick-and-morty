@@ -4,9 +4,9 @@ import { IconContext } from 'react-icons';
 import { FaSpinner } from 'react-icons/fa';
 
 export default function Loader() {
-   return (
-      <IconContext.Provider value={{ className: styles.loader }}>
-         <FaSpinner />
-      </IconContext.Provider>
-   );
+  return (
+    <IconContext.Provider value={{ className: styles.loader }}>
+      <FaSpinner />
+    </IconContext.Provider>
+  );
 }
