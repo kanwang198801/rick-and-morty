@@ -2,7 +2,7 @@ import * as React from 'react';
 import styles from './styles.module.css';
 import PropTypes from 'prop-types';
 
-export default function Search({ onSearchAllChange, placeholder }) {
+const Search = ({ onSearchAllChange, placeholder }) => {
   return (
     <div className={styles.search}>
       <input
@@ -13,7 +13,8 @@ export default function Search({ onSearchAllChange, placeholder }) {
       />
     </div>
   );
-}
+};
+export default Search;
 
 Search.propTypes = {
   onSearchAllChange: PropTypes.func,

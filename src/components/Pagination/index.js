@@ -4,11 +4,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Divider from '../Divider';
 
-export default function Pagination({
-  paginationNums,
-  currentPage,
-  filterValues,
-}) {
+const Pagination = ({ paginationNums, currentPage, filterValues }) => {
   let pagination = [];
   const {
     searchAllInput,
@@ -82,7 +78,8 @@ export default function Pagination({
       )}
     </>
   );
-}
+};
+export default Pagination;
 
 Pagination.propTypes = {
   paginationNums: PropTypes.arrayOf(PropTypes.number).isRequired,

@@ -2,7 +2,7 @@ import * as React from 'react';
 import styles from './styles.module.css';
 import PropTypes from 'prop-types';
 
-export default function Search({ filterFunctions, filterValues }) {
+const Search = ({ filterFunctions, filterValues }) => {
   const {
     setStatusFilter,
     setSpeciesFilter,
@@ -74,7 +74,8 @@ export default function Search({ filterFunctions, filterValues }) {
       </select>
     </div>
   );
-}
+};
+export default Search;
 
 Search.propTypes = {
   filterFunctions: PropTypes.objectOf(PropTypes.func),

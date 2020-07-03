@@ -3,7 +3,7 @@ import styles from './styles.module.css';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-export default function List({ items, link, type }) {
+const List = ({ items, link, type }) => {
   let list;
   if (type === 'character') {
     list = items.map((listItem) => {
@@ -36,7 +36,8 @@ export default function List({ items, link, type }) {
       )}
     </>
   );
-}
+};
+export default List;
 
 List.propTypes = {
   items: PropTypes.arrayOf(
